@@ -46,6 +46,7 @@
     src: url('CoventryC.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
+	font-display: block; /* дождется загрузки, прежде чем показывать */
   }
   
   .secret-message {
@@ -814,15 +815,22 @@
       }
     });
 
-    function loadSecretMessage() {
-      fetch('secret.txt')
-        .then(response => response.text())
-        .then(encodedMessage => {
-          const decodedMessage = decodeBase64(encodedMessage.trim());
-          displayCompliment(decodedMessage, true);
-        })
-        .catch(error => console.error('Ошибка загрузки секрета:', error));
-    }
+function loadSecretMessage() {
+  const font = new FontFace('CoventryC', 'url(CoventryC.otf)');
+  
+  font.load().then(function(loadedFont) {
+    document.fonts.add(loadedFont);
+    fetch('secret.txt')
+      .then(response => response.text())
+      .then(encodedMessage => {
+        const decodedMessage = decodeBase64(encodedMessage.trim());
+        displayCompliment(decodedMessage, true);
+      })
+      .catch(error => console.error('Ошибка загрузки секрета:', error));
+  }).catch(error => {
+    console.error('Ошибка загрузки шрифта:', error);
+  });
+}
 
     function decodeBase64(str) {
       try {
