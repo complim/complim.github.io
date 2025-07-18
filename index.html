@@ -161,6 +161,7 @@
       }
       displayCompliment(shuffled[index]);
       index++;
+      trackComplimentView();
     }
 
 function displayCompliment(text, isSecret = false) {
@@ -218,6 +219,26 @@ function displayCompliment(text, isSecret = false) {
         secretSequence = secretSequence.slice(-secretWord.length);
       }
     });
+
+let complimentsViewed = 0;
+
+// вызывать в showNextCompliment()
+function trackComplimentView() {
+  complimentsViewed++;
+}
+
+window.addEventListener('beforeunload', () => {
+  fetch('ТВОЙ_URL_ИЗ_Apps_Script', {
+    method: 'POST',
+    body: JSON.stringify({
+      count: complimentsViewed,
+      ip: '' // IP можно получить через сторонний API если нужно
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+});
 
     function loadSecretMessage() {
       fetch('secret.txt')
