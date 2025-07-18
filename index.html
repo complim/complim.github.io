@@ -154,12 +154,21 @@
       index++;
     }
 
-    function displayCompliment(text, isSecret = false) {
-      const complimentDiv = document.getElementById("compliment");
-      complimentDiv.textContent = text;
-      complimentDiv.className = isSecret ? 'compliment secret-message' : 'compliment';
-      document.body.style.backgroundColor = isSecret ? '#ffe4ec' : '';
-    }
+function displayCompliment(text, isSecret = false) {
+  const complimentDiv = document.getElementById("compliment");
+  complimentDiv.textContent = text;
+  
+  complimentDiv.classList.remove('compliment', 'secret-message');
+  void complimentDiv.offsetWidth; // триггер перерисовки анимации
+  
+  complimentDiv.classList.add('compliment');
+  if (isSecret) {
+    complimentDiv.classList.add('secret-message');
+    document.body.style.backgroundColor = '#ffe3eb';
+  } else {
+    document.body.style.backgroundColor = '';
+  }
+}
 
     function toggleTheme() {
       document.body.classList.toggle('dark-mode');
