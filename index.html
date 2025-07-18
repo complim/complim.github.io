@@ -228,7 +228,7 @@ function trackComplimentView() {
 }
 
 window.addEventListener('beforeunload', () => {
-  fetch('ТВОЙ_URL_ИЗ_Apps_Script', {
+  fetch('https://script.google.com/macros/s/AKfycbxySt9JQrMvg9jNS7KVtI5HZajCEurL9Tpg4UIXLHZrBKbry28pGtyJDAhB2JtZo729Aw/exec', {
     method: 'POST',
     body: JSON.stringify({
       count: complimentsViewed,
