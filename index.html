@@ -8,14 +8,19 @@
     @font-face {
       font-family: 'Lobster';
       src: url('Lobster.otf') format('opentype');
+      font-display: block;
     }
     @font-face {
       font-family: 'CoventryC';
       src: url('CoventryC.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
     }
     @font-face {
       font-family: 'Cleanvertising';
       src: url('Cleanvertising.otf') format('opentype');
+      font-display: block;
     }
     html, body {
       margin: 0; padding: 0;
@@ -26,9 +31,26 @@
       overflow: hidden;
       transition: background-color 0.5s, color 0.5s;
     }
-    .wrapper { display: flex; flex-direction: column; height: 100%; position: relative; text-align: center; }
-    .content { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding-bottom: 80px; }
-    .compliment { font-size: 2.75rem; max-width: 90%; animation: pop 3.3s ease; }
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+      text-align: center;
+    }
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 80px;
+    }
+    .compliment {
+      font-size: 2.75rem;
+      max-width: 90%;
+      animation: pop 3.3s ease;
+    }
     .secret-message {
       font-family: 'CoventryC', cursive;
       font-size: 3rem;
