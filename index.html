@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JVDNN7B4EF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JVDNN7B4EF');
+</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Комплиментики</title>
@@ -161,7 +170,6 @@
       }
       displayCompliment(shuffled[index]);
       index++;
-      trackComplimentView();
     }
 
 function displayCompliment(text, isSecret = false) {
@@ -220,25 +228,21 @@ function displayCompliment(text, isSecret = false) {
       }
     });
 
-let complimentsViewed = 0;
-
-// вызывать в showNextCompliment()
-function trackComplimentView() {
-  complimentsViewed++;
-}
-
-window.addEventListener('beforeunload', () => {
-  fetch('https://script.google.com/macros/s/AKfycbxySt9JQrMvg9jNS7KVtI5HZajCEurL9Tpg4UIXLHZrBKbry28pGtyJDAhB2JtZo729Aw/exec', {
-    method: 'POST',
-    body: JSON.stringify({
-      count: complimentsViewed,
-      ip: '' // IP можно получить через сторонний API если нужно
-    }),
-    headers: {
-      'Content-Type': 'application/json'
-    }
+function showNextCompliment() {
+  if (index >= shuffled.length) {
+    shuffled = shuffleArray(compliments);
+    index = 0;
+  }
+  displayCompliment(shuffled[index]);
+  
+  // отправка события в Google Analytics
+  gtag('event', 'compliment_shown', {
+    'event_category': 'engagement',
+    'event_label': 'Compliment Displayed'
   });
-});
+
+  index++;
+}
 
     function loadSecretMessage() {
       fetch('secret.txt')
