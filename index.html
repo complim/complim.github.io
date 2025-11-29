@@ -163,6 +163,7 @@
   }
 
   function showNextCompliment() {
+    if (!shuffled.length) return;
     if (index >= shuffled.length) {
       shuffled = shuffleArray(compliments);
       index = 0;
