@@ -225,19 +225,26 @@
   let secretSequence = '';
 
   const secretWord1 = '25101990';
-  const secretWord2 = '4242';
+  const secretWord2 = '03102025';
+  const secretCode3 = '04102025';
 
   document.addEventListener('keydown', (e) => {
     secretSequence += e.key.toLowerCase();
 
     if (secretSequence.includes(secretWord1)) {
-      loadSecretMessage();
+      loadSecretMessage('secret.txt');
       secretSequence = '';
     }
 
     if (secretSequence.includes(secretWord2)) {
-      loadSecondSecretMessage();
+      loadSecondSecretMessage('message.txt');
       secretSequence = '';
+    }
+
+    if (secretSequence.includes(secretCode3)) {
+      showGifSecret();
+      secretSequence = '';
+      return;
     }
 
     const maxLength = Math.max(secretWord1.length, secretWord2.length);
@@ -246,8 +253,8 @@
     }
   });
 
-  function loadSecretMessage() {
-    fetch('secret.txt')
+  function loadSecretMessage(filename) {
+    fetch(filename)
       .then(response => response.text())
       .then(encodedMessage => {
         const decodedMessage = decodeBase64(encodedMessage.trim());
@@ -256,15 +263,19 @@
       .catch(err => console.error('Ошибка загрузки секрета:', err));
   }
 
-  function loadSecondSecretMessage() {
-    fetch('message.txt')
-      .then(response => response.text())
-      .then(encodedMessage => {
-        const decodedMessage = decodeBase64(encodedMessage.trim());
-        displayCompliment(decodedMessage, true);
-      })
-      .catch(err => console.error('Ошибка загрузки второго секрета:', err));
-  }
+function showGifSecret() {
+  const gifUrl = 'Goddess.gif';
+  const html = `
+    <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:80vh; text-align:center;">
+      <img src="${gifUrl}" style="max-width:80%; max-height:60vh; object-fit:contain; margin-bottom:20px;">
+      <div style="font-family:'CoventryC', cursive; font-size:2.5rem; color:#e91e63; font-weight:bold;">
+        Я ЛЮБЛЮ ТЕБЯ, ТЫ МОЯ ЖИЗНЬ!
+      </div>
+    </div>
+  `;
+  displayCompliment(html, true);
+  document.body.style.backgroundColor = '#ffe3eb';
+}
 
   function decodeBase64(str) {
     try {
