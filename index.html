@@ -228,6 +228,20 @@ function displayCompliment(text, isSecret = false) {
       }
     });
 
+    let secretSequence = '';
+    const secretWord = '15031989';
+
+    document.addEventListener('keydown', (e) => {
+      secretSequence += e.key.toLowerCase();
+      if (secretSequence.includes(secretWord)) {
+        loadMessageMessage();
+        secretSequence = '';
+      }
+      if (secretSequence.length > secretWord.length) {
+        secretSequence = secretSequence.slice(-secretWord.length);
+      }
+    });
+
 function showNextCompliment() {
   if (index >= shuffled.length) {
     shuffled = shuffleArray(compliments);
@@ -246,6 +260,16 @@ function showNextCompliment() {
 
     function loadSecretMessage() {
       fetch('secret.txt')
+        .then(response => response.text())
+        .then(encodedMessage => {
+          const decodedMessage = decodeBase64(encodedMessage.trim());
+          displayCompliment(decodedMessage, true);
+        })
+        .catch(err => console.error('Ошибка загрузки секрета:', err));
+    }
+
+    function loadMessageMessage() {
+      fetch('message.txt')
         .then(response => response.text())
         .then(encodedMessage => {
           const decodedMessage = decodeBase64(encodedMessage.trim());
