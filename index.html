@@ -1,135 +1,77 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Комплиментики</title>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JVDNN7B4EF"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-JVDNN7B4EF');
 </script>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Комплиментики</title>
-  <style>
-    @font-face {
-      font-family: 'Lobster';
-      src: url('Lobster.otf') format('opentype');
-      font-display: block;
-    }
-    @font-face {
-      font-family: 'CoventryC';
-      src: url('CoventryC.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: block;
-    }
-    @font-face {
-      font-family: 'Cleanvertising';
-      src: url('Cleanvertising.otf') format('opentype');
-      font-display: block;
-    }
-    html, body {
-      margin: 0; padding: 0;
-      background: #f0f0f0;
-      color: #1a1a1a;
-      font-family: 'Lobster', sans-serif;
-      height: 100%;
-      overflow: hidden;
-      transition: background-color 0.5s, color 0.5s;
-    }
-    .wrapper {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      position: relative;
-      text-align: center;
-    }
-    .content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding-bottom: 80px;
-    }
-    .compliment {
-      font-size: 2.75rem;
-      max-width: 90%;
-      animation: pop 3.3s ease;
-    }
-    .secret-message {
-      font-family: 'CoventryC', cursive;
-      font-size: 3rem;
-      color: #e91e63;
-      background-color: #ffe3eb;
-      padding: 20px;
-      border-radius: 12px;
-      font-weight: 400;
-      line-height: 1;
-    }
-@media (max-width: 600px) {
-  .compliment {
-    font-size: 2rem;
+
+<style>
+  @font-face { font-family: 'Lobster'; src: url('Lobster.otf') format('opentype'); font-display: block; }
+  @font-face { font-family: 'CoventryC'; src: url('CoventryC.otf') format('opentype'); font-display: block; }
+  @font-face { font-family: 'Cleanvertising'; src: url('Cleanvertising.otf') format('opentype'); font-display: block; }
+
+  html, body {
+    margin: 0; padding: 0;
+    font-family: 'Lobster', sans-serif;
+    height: 100%;
+    overflow: hidden;
+    background: #f0f0f0;
+    color: #1a1a1a;
+    transition: background-color 0.5s, color 0.5s;
   }
 
-  .secret-message {
-    font-size: 2rem;
+  body.hidden { visibility: hidden; }
+
+  .wrapper { display: flex; flex-direction: column; height: 100%; position: relative; text-align: center; }
+  .content { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding-bottom: 80px; }
+  .compliment { font-size: 2.75rem; max-width: 90%; animation: pop 3.3s ease; }
+  .secret-message { font-family: 'CoventryC', cursive; font-size: 3rem; color: #e91e63; background-color: #ffe3eb; padding: 20px; border-radius: 12px; font-weight: 400; line-height: 1; }
+
+  @media (max-width: 600px) {
+    .compliment { font-size: 2rem; }
+    .secret-message { font-size: 2rem; }
   }
-}
-    button {
-      position: absolute;
-      width: 90px; height: 50px;
-      bottom: 20px; left: 50%;
-      transform: translateX(-50%);
-      background-color: #e91e63;
-      color: white;
-      border: none;
-      font-family: 'Cleanvertising', sans-serif;
-      font-size: 1.25rem;
-      border-radius: 7px;
-      cursor: pointer;
-      z-index: 1;
-    }
-    .theme-toggle {
-      position: fixed; bottom: 20px; right: 40px;
-      width: 50px; height: 50px;
-      background: #404040;
-      border: none;
-      border-radius: 7px;
-      font-size: 20px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      z-index: 2;
-    }
-    .theme-toggle.dark { background: #CCCCCC; color: #fff; }
-    .dark-mode { background: #1a1a1a; color: #f0f0f0; }
-    @keyframes pop {
-      0% { transform: scale(0.9); opacity: 0.8; }
-      50% { transform: scale(1.1); opacity: 1; }
-      100% { transform: scale(1); }
-    }
-    .hearts { position: absolute; width: 100%; height: 100%; top: 0; left: 0; overflow: hidden; z-index: 0; pointer-events: none; }
-    .heart {
-      position: absolute; width: 20px; height: 20px;
-      background: #e91e63; transform: rotate(45deg); opacity: 0.4;
-      animation: float 16s linear infinite;
-    }
-    .heart::before, .heart::after {
-      content: ""; position: absolute; width: 20px; height: 20px;
-      background: #e91e63; border-radius: 50%;
-    }
-    .heart::before { top: -10px; left: 0; }
-    .heart::after { left: -10px; top: 0; }
-    @keyframes float {
-      0% { transform: translateY(100vh) rotate(45deg); opacity: 0.4; }
-      100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
-    }
-  </style>
+
+  button {
+    position: absolute; width: 90px; height: 50px; bottom: 20px; left: 50%;
+    transform: translateX(-50%);
+    background-color: #e91e63; color: white; border: none;
+    font-family: 'Cleanvertising', sans-serif; font-size: 1.25rem; border-radius: 7px; cursor: pointer; z-index: 1;
+  }
+
+  .theme-toggle {
+    position: fixed; bottom: 20px; right: 40px; width: 50px; height: 50px;
+    background: #404040; border: none; border-radius: 7px; font-size: 20px;
+    display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2;
+  }
+  .theme-toggle.dark { background: #CCCCCC; color: #fff; }
+  .dark-mode { background: #1a1a1a; color: #f0f0f0; }
+
+  @keyframes pop { 0% { transform: scale(0.9); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); } }
+
+  .hearts { position: absolute; width: 100%; height: 100%; top: 0; left: 0; overflow: hidden; z-index: 0; pointer-events: none; }
+  .heart {
+    position: absolute; width: 20px; height: 20px; background: #e91e63; transform: rotate(45deg); opacity: 0.4;
+    animation: float 16s linear infinite;
+  }
+  .heart::before, .heart::after { content: ""; position: absolute; width: 20px; height: 20px; background: #e91e63; border-radius: 50%; }
+  .heart::before { top: -10px; left: 0; }
+  .heart::after { left: -10px; top: 0; }
+  @keyframes float { 0% { transform: translateY(100vh) rotate(45deg); opacity: 0.4; } 100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; } }
+
+  @keyframes flyAway { 0% { transform: translate(0,0) rotate(0deg); opacity: 0.8; } 100% { transform: translate(calc((50px-100px)*1), calc((50px-100px)*-1)) rotate(360deg); opacity:0; } }
+</style>
 </head>
-<body>
+
+<body class="hidden">
   <div class="wrapper">
     <div class="content">
       <div class="compliment" id="compliment"></div>
@@ -140,160 +82,158 @@
   </div>
 
 <script>
-  let compliments = [];
-  let shuffled = [];
-  let index = 0;
+let compliments = [];
+let shuffled = [];
+let index = 0;
 
-  fetch('compliments.txt')
-    .then(response => response.text())
-    .then(text => {
-      compliments = text.split('\n').filter(line => line.trim() !== '');
-      shuffled = shuffleArray(compliments);
-      showNextCompliment();
-    })
-    .catch(err => console.error('Не удалось загрузить комплименты:', err));
+// Загружаем комплименты
+fetch('compliments.txt')
+  .then(response => response.text())
+  .then(text => {
+    compliments = text.split('\n').filter(line => line.trim() !== '');
+    shuffled = shuffleArray(compliments);
+    showNextCompliment();
+    document.body.classList.remove('hidden'); // показываем страницу после загрузки комплиментов
+  })
+  .catch(err => console.error('Не удалось загрузить комплименты:', err));
 
-  function shuffleArray(array) {
-    const copy = [...array];
-    for (let i = copy.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [copy[i], copy[j]] = [copy[j], copy[i]];
-    }
-    return copy;
-  }
+function shuffleArray(array){ const copy=[...array]; for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [copy[i],copy[j]]=[copy[j],copy[i]];} return copy;}
 
-  function showNextCompliment() {
-    if (!shuffled.length) return;
-    if (index >= shuffled.length) {
-      shuffled = shuffleArray(compliments);
-      index = 0;
-    }
+function showNextCompliment(){
+  if(!shuffled.length) return;
+  if(index>=shuffled.length){ shuffled=shuffleArray(compliments); index=0; }
+  displayCompliment(shuffled[index]);
+  gtag('event','compliment_shown',{'event_category':'engagement','event_label':'Compliment Displayed'});
+  index++;
+}
 
-    displayCompliment(shuffled[index]);
+function displayCompliment(text, isSecret=false){
+  const div = document.getElementById("compliment");
+  div.textContent = text;
+  div.classList.remove('compliment','secret-message');
+  void div.offsetWidth;
+  div.classList.add('compliment');
+  if(isSecret){ div.classList.add('secret-message'); document.body.style.backgroundColor='#ffe3eb'; } else { document.body.style.backgroundColor=''; }
+}
 
-    gtag('event', 'compliment_shown', {
-      'event_category': 'engagement',
-      'event_label': 'Compliment Displayed'
-    });
+function toggleTheme(){
+  document.body.classList.toggle('dark-mode');
+  const isDark = document.body.classList.contains('dark-mode');
+  const toggle = document.getElementById('themeToggle');
+  toggle.textContent = isDark ? '☀️' : '🌕';
+  toggle.classList.toggle('dark', isDark);
+  localStorage.setItem('theme', isDark?'dark':'light');
+}
 
-    index++;
-  }
+// Сердечки
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.style.left = Math.random()*100+"vw";
+  heart.style.animationDuration = (12+Math.random()*8)+"s";
+  document.getElementById("hearts").appendChild(heart);
+  setTimeout(()=>heart.remove(),18000);
+}
+setInterval(createHeart,500);
 
-  function displayCompliment(text, isSecret = false) {
-    const complimentDiv = document.getElementById("compliment");
-    complimentDiv.textContent = text;
-
-    complimentDiv.classList.remove('compliment', 'secret-message');
-    void complimentDiv.offsetWidth;
-
-    complimentDiv.classList.add('compliment');
-
-    if (isSecret) {
-      complimentDiv.classList.add('secret-message');
-      document.body.style.backgroundColor = '#ffe3eb';
-    } else {
-      document.body.style.backgroundColor = '';
-    }
-  }
-
-  function toggleTheme() {
-    document.body.classList.toggle('dark-mode');
-    const isDark = document.body.classList.contains('dark-mode');
-    document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌕';
-    document.getElementById('themeToggle').classList.toggle('dark', isDark);
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  }
-
-  function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (12 + Math.random() * 8) + "s";
-    document.getElementById("hearts").appendChild(heart);
-    setTimeout(() => heart.remove(), 18000);
-  }
-  setInterval(createHeart, 500);
-
-  window.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      document.body.classList.add('dark-mode');
-      document.getElementById('themeToggle').textContent = '☀️';
-    }
-  });
-
-let secretSequence = '';
-
-const secretCode1 = '25101990'; // secret.txt
-const secretCode2 = '03102025'; // message.txt
-const secretCode3 = '04102025'; // webp + текст
-
-document.addEventListener('keydown', (e) => {
-  secretSequence += e.key.toLowerCase();
-
-  if (secretSequence.includes(secretCode1)) {
-    loadSecretMessage('secret.txt');
-    secretSequence = '';
-    return;
-  }
-
-  if (secretSequence.includes(secretCode2)) {
-    loadSecretMessage('message.txt');
-    secretSequence = '';
-    return;
-  }
-
-  if (secretSequence.includes(secretCode3)) {
-    showGifSecret();
-    secretSequence = '';
-    return;
-  }
-
-  const maxLength = Math.max(secretCode1.length, secretCode2.length, secretCode3.length);
-  if (secretSequence.length > maxLength) {
-    secretSequence = secretSequence.slice(-maxLength);
+// Сердечки при движении мыши
+window.addEventListener('mousemove', e=>{
+  for(let i=0;i<3;i++){
+    const heart=document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.width = heart.style.height = (5+Math.random()*15)+'px';
+    heart.style.left = e.clientX + (Math.random()*40-20) + 'px';
+    heart.style.top = e.clientY + (Math.random()*40-20) + 'px';
+    heart.style.opacity = 0.8;
+    heart.style.animation = 'flyAway 1.5s ease-out forwards';
+    document.getElementById('hearts').appendChild(heart);
+    setTimeout(()=>heart.remove(),1500);
   }
 });
 
-function loadSecretMessage(filename) {
+window.addEventListener('DOMContentLoaded', ()=>{
+  const savedTheme = localStorage.getItem('theme');
+  if(savedTheme==='dark'){ document.body.classList.add('dark-mode'); document.getElementById('themeToggle').textContent='☀️'; }
+});
+
+// Секреты
+let secretSequence='';
+const secretCode1='25101990'; // secret.txt
+const secretCode2='03102025'; // message.txt
+const secretCode3='04102025'; // webp + текст
+
+document.addEventListener('keydown', e=>{
+  secretSequence+=e.key.toLowerCase();
+  if(secretSequence.includes(secretCode1)){ loadSecretMessage('secret.txt'); secretSequence=''; return; }
+  if(secretSequence.includes(secretCode2)){ loadSecretMessage('message.txt'); secretSequence=''; return; }
+  if(secretSequence.includes(secretCode3)){ showGifSecret(); secretSequence=''; return; }
+
+  const maxLength=Math.max(secretCode1.length,secretCode2.length,secretCode3.length);
+  if(secretSequence.length>maxLength) secretSequence=secretSequence.slice(-maxLength);
+});
+
+function loadSecretMessage(filename){
   fetch(filename)
-    .then(response => response.text())
-    .then(encodedMessage => {
-      const decodedMessage = decodeBase64(encodedMessage.trim());
-      displaySecret(decodedMessage);
-    })
-    .catch(err => console.error('Ошибка загрузки секрета:', err));
+    .then(resp=>resp.text())
+    .then(encoded=>{
+      const decoded=decodeBase64(encoded.trim());
+      displaySecret(decoded);
+    }).catch(err=>console.error('Ошибка загрузки секрета:',err));
 }
 
-function showGifSecret() {
-  const gifUrl = 'Goddess.webp';
-  const html = `
-    <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:80vh; text-align:center;">
-      <img src="${gifUrl}" style="max-width:80%; max-height:60vh; object-fit:contain; margin-bottom:20px;">
-      <div style="font-family:'Lobster', cursive; font-size:2.5rem; color:#e91e63; font-weight:normal;">
-        Я ЛЮБЛЮ ТЕБЯ, МОЯ ЖИЗНЬ!❤️‍🔥
-      </div>
-    </div>
-  `;
-  displaySecret(html);
+function showGifSecret(){
+  document.body.classList.add('hidden'); // скрываем всё до полной загрузки GIF
+  const gifUrl='Goddess.webp'; // путь к WebP
+  const img = new Image();
+  img.src = gifUrl;
+
+  img.onload=()=>{
+    const container=document.createElement('div');
+    container.style.display='flex';
+    container.style.flexDirection='column';
+    container.style.alignItems='center';
+    container.style.justifyContent='center';
+    container.style.height='100vh';
+    container.style.textAlign='center';
+
+    img.style.maxWidth='80%';
+    img.style.maxHeight='60vh';
+    img.style.objectFit='contain';
+    img.style.marginBottom='20px';
+
+    const textDiv=document.createElement('div');
+    textDiv.style.fontFamily="'CoventryC', cursive";
+    textDiv.style.fontSize='2.5rem';
+    textDiv.style.color='#e91e63';
+    textDiv.style.fontWeight='bold';
+    textDiv.textContent='Я ЛЮБЛЮ ТЕБЯ, МОЯ ЖИЗНЬ!';
+
+    container.appendChild(img);
+    container.appendChild(textDiv);
+
+    document.body.innerHTML='';
+    document.body.appendChild(container);
+    document.body.classList.remove('hidden');
+  };
+
+  img.onerror=()=>{
+    console.error('Ошибка загрузки WebP');
+    document.body.classList.remove('hidden');
+  };
 }
 
-function displaySecret(htmlContent) {
-  const complimentDiv = document.getElementById("compliment");
-  complimentDiv.innerHTML = htmlContent;
-  complimentDiv.classList.remove('compliment', 'secret-message');
-  void complimentDiv.offsetWidth;
-  complimentDiv.classList.add('compliment', 'secret-message');
-  document.body.style.backgroundColor = '#ffe3eb';
+function displaySecret(htmlContent){
+  const div=document.getElementById('compliment');
+  div.innerHTML=htmlContent;
+  div.classList.remove('compliment','secret-message');
+  void div.offsetWidth;
+  div.classList.add('compliment','secret-message');
+  document.body.style.backgroundColor='#ffe3eb';
 }
 
-function decodeBase64(str) {
-  try {
-    return decodeURIComponent(escape(atob(str)));
-  } catch (e) {
-    console.error('Ошибка при расшифровке base64:', e);
-    return '';
-  }
+function decodeBase64(str){
+  try{ return decodeURIComponent(escape(atob(str))); }
+  catch(e){ console.error('Ошибка при расшифровке base64:',e); return ''; }
 }
 </script>
 </body>
