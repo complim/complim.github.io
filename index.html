@@ -139,129 +139,142 @@
     <div class="hearts" id="hearts"></div>
   </div>
 
-  <script>
-    let compliments = [];
-    let shuffled = [];
-    let index = 0;
+<script>
+  let compliments = [];
+  let shuffled = [];
+  let index = 0;
 
-    fetch('compliments.txt')
-      .then(response => response.text())
-      .then(text => {
-        compliments = text.split('\n').filter(line => line.trim() !== '');
-        shuffled = shuffleArray(compliments);
-        showNextCompliment();
-      })
-      .catch(err => console.error('Не удалось загрузить комплименты:', err));
+  fetch('compliments.txt')
+    .then(response => response.text())
+    .then(text => {
+      compliments = text.split('\n').filter(line => line.trim() !== '');
+      shuffled = shuffleArray(compliments);
+      showNextCompliment();
+    })
+    .catch(err => console.error('Не удалось загрузить комплименты:', err));
 
-    function shuffleArray(array) {
-      const copy = [...array];
-      for (let i = copy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [copy[i], copy[j]] = [copy[j], copy[i]];
-      }
-      return copy;
+  function shuffleArray(array) {
+    const copy = [...array];
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
     }
-
-    function showNextCompliment() {
-      if (!shuffled.length) return;
-      if (index >= shuffled.length) {
-        shuffled = shuffleArray(compliments);
-        index = 0;
-      }
-      displayCompliment(shuffled[index]);
-      index++;
-    }
-
-function displayCompliment(text, isSecret = false) {
-  const complimentDiv = document.getElementById("compliment");
-  complimentDiv.textContent = text;
-  
-  complimentDiv.classList.remove('compliment', 'secret-message');
-  void complimentDiv.offsetWidth; // триггер перерисовки анимации
-  
-  complimentDiv.classList.add('compliment');
-  if (isSecret) {
-    complimentDiv.classList.add('secret-message');
-    document.body.style.backgroundColor = '#ffe3eb';
-  } else {
-    document.body.style.backgroundColor = '';
+    return copy;
   }
-}
 
-    function toggleTheme() {
-      document.body.classList.toggle('dark-mode');
-      const isDark = document.body.classList.contains('dark-mode');
-      document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌕';
-      document.getElementById('themeToggle').classList.toggle('dark', isDark);
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  function showNextCompliment() {
+    if (index >= shuffled.length) {
+      shuffled = shuffleArray(compliments);
+      index = 0;
     }
 
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.classList.add("heart");
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = (12 + Math.random() * 8) + "s";
-      document.getElementById("hearts").appendChild(heart);
-      setTimeout(() => heart.remove(), 18000);
-    }
-    setInterval(createHeart, 500);
+    displayCompliment(shuffled[index]);
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-        document.getElementById('themeToggle').textContent = '☀️';
-      }
+    gtag('event', 'compliment_shown', {
+      'event_category': 'engagement',
+      'event_label': 'Compliment Displayed'
     });
 
-    let secretSequence = '';
-    const secretWord = '25101990';
-
-    document.addEventListener('keydown', (e) => {
-      secretSequence += e.key.toLowerCase();
-      if (secretSequence.includes(secretWord)) {
-        loadSecretMessage();
-        secretSequence = '';
-      }
-      if (secretSequence.length > secretWord.length) {
-        secretSequence = secretSequence.slice(-secretWord.length);
-      }
-    });
-
-function showNextCompliment() {
-  if (index >= shuffled.length) {
-    shuffled = shuffleArray(compliments);
-    index = 0;
+    index++;
   }
-  displayCompliment(shuffled[index]);
-  
-  // отправка события в Google Analytics
-  gtag('event', 'compliment_shown', {
-    'event_category': 'engagement',
-    'event_label': 'Compliment Displayed'
+
+  function displayCompliment(text, isSecret = false) {
+    const complimentDiv = document.getElementById("compliment");
+    complimentDiv.textContent = text;
+
+    complimentDiv.classList.remove('compliment', 'secret-message');
+    void complimentDiv.offsetWidth;
+
+    complimentDiv.classList.add('compliment');
+
+    if (isSecret) {
+      complimentDiv.classList.add('secret-message');
+      document.body.style.backgroundColor = '#ffe3eb';
+    } else {
+      document.body.style.backgroundColor = '';
+    }
+  }
+
+  function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌕';
+    document.getElementById('themeToggle').classList.toggle('dark', isDark);
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  }
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (12 + Math.random() * 8) + "s";
+    document.getElementById("hearts").appendChild(heart);
+    setTimeout(() => heart.remove(), 18000);
+  }
+  setInterval(createHeart, 500);
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark-mode');
+      document.getElementById('themeToggle').textContent = '☀️';
+    }
   });
 
-  index++;
-}
+  /* ===== СЕКРЕТНЫЕ КОДЫ ===== */
 
-    function loadSecretMessage() {
-      fetch('secret.txt')
-        .then(response => response.text())
-        .then(encodedMessage => {
-          const decodedMessage = decodeBase64(encodedMessage.trim());
-          displayCompliment(decodedMessage, true);
-        })
-        .catch(err => console.error('Ошибка загрузки секрета:', err));
+  let secretSequence = '';
+
+  const secretWord1 = '25101990'; // первый секрет
+  const secretWord2 = '1111';     // второй секрет
+
+  document.addEventListener('keydown', (e) => {
+    secretSequence += e.key.toLowerCase();
+
+    if (secretSequence.includes(secretWord1)) {
+      loadSecretMessage();
+      secretSequence = '';
     }
 
-    function decodeBase64(str) {
-      try {
-        return decodeURIComponent(escape(atob(str)));
-      } catch (e) {
-        console.error('Ошибка при расшифровке base64:', e);
-        return '';
-      }
+    if (secretSequence.includes(secretWord2)) {
+      loadSecondSecretMessage();
+      secretSequence = '';
     }
-  </script>
+
+    const maxLength = Math.max(secretWord1.length, secretWord2.length);
+    if (secretSequence.length > maxLength) {
+      secretSequence = secretSequence.slice(-maxLength);
+    }
+  });
+
+  function loadSecretMessage() {
+    fetch('secret.txt')
+      .then(response => response.text())
+      .then(encodedMessage => {
+        const decodedMessage = decodeBase64(encodedMessage.trim());
+        displayCompliment(decodedMessage, true);
+      })
+      .catch(err => console.error('Ошибка загрузки секрета:', err));
+  }
+
+  function loadSecondSecretMessage() {
+    fetch('message.txt')
+      .then(response => response.text())
+      .then(encodedMessage => {
+        const decodedMessage = decodeBase64(encodedMessage.trim());
+        displayCompliment(decodedMessage, true);
+      })
+      .catch(err => console.error('Ошибка загрузки второго секрета:', err));
+  }
+
+  function decodeBase64(str) {
+    try {
+      return decodeURIComponent(escape(atob(str)));
+    } catch (e) {
+      console.error('Ошибка при расшифровке base64:', e);
+      return '';
+    }
+  }
+</script>
 </body>
 </html>
