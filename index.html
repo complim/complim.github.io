@@ -256,28 +256,17 @@ document.addEventListener('keydown', (e) => {
 });
 
 function loadSecretMessage(filename) {
-  const complimentDiv = document.getElementById("compliment");
-  // скрываем текст до загрузки
-  complimentDiv.style.visibility = 'hidden';
-  
   fetch(filename)
     .then(response => response.text())
     .then(encodedMessage => {
       const decodedMessage = decodeBase64(encodedMessage.trim());
-      // небольшая задержка перед показом
-      setTimeout(() => {
-        displaySecret(decodedMessage);
-        complimentDiv.style.visibility = 'visible';
-      }, 200); // 200 мс, можно увеличить
+      displaySecret(decodedMessage); // сразу показываем текст, задержка не нужна
     })
     .catch(err => console.error('Ошибка загрузки секрета:', err));
 }
 
 function showGifSecret() {
   const gifUrl = 'Goddess.webp';
-  const complimentDiv = document.getElementById("compliment");
-  complimentDiv.style.visibility = 'hidden';
-  
   const img = new Image();
   img.src = gifUrl;
 
@@ -291,13 +280,20 @@ function showGifSecret() {
       </div>
     `;
     displaySecret(html);
-    complimentDiv.style.visibility = 'visible';
   };
 
   img.onerror = () => {
     console.error('Ошибка загрузки WebP');
-    complimentDiv.style.visibility = 'visible';
   };
+}
+
+function displaySecret(htmlContent) {
+  const complimentDiv = document.getElementById("compliment");
+  complimentDiv.innerHTML = htmlContent;
+  complimentDiv.classList.remove('compliment', 'secret-message');
+  void complimentDiv.offsetWidth;
+  complimentDiv.classList.add('compliment', 'secret-message');
+  document.body.style.backgroundColor = '#ffe3eb';
 }
 </script>
 </body>
