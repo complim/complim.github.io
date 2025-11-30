@@ -260,7 +260,7 @@ function loadSecretMessage(filename) {
     .then(response => response.text())
     .then(encodedMessage => {
       const decodedMessage = decodeBase64(encodedMessage.trim());
-      displaySecret(decodedMessage); // сразу показываем текст, задержка не нужна
+      displaySecret(decodedMessage);
     })
     .catch(err => console.error('Ошибка загрузки секрета:', err));
 }
@@ -294,6 +294,15 @@ function displaySecret(htmlContent) {
   void complimentDiv.offsetWidth;
   complimentDiv.classList.add('compliment', 'secret-message');
   document.body.style.backgroundColor = '#ffe3eb';
+}
+
+function decodeBase64(str) {
+  try {
+    return decodeURIComponent(escape(atob(str)));
+  } catch (e) {
+    console.error('Ошибка при расшифровке base64:', e);
+    return '';
+  }
 }
 </script>
 </body>
