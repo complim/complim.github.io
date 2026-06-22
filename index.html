@@ -226,7 +226,7 @@ let secretSequence = '';
 
 const secretCode1 = '25101990'; // secret.txt
 const secretCode2 = '03102025'; // message.txt
-const secretCode3 = '04102025'; // webp + текст
+const secretCode3 = '10042026'; // message2.txt
 
 document.addEventListener('keydown', (e) => {
   secretSequence += e.key.toLowerCase();
@@ -244,7 +244,7 @@ document.addEventListener('keydown', (e) => {
   }
 
   if (secretSequence.includes(secretCode3)) {
-    showGifSecret();
+    loadSecretMessage('message2.txt');
     secretSequence = '';
     return;
   }
@@ -263,28 +263,6 @@ function loadSecretMessage(filename) {
       displaySecret(decodedMessage);
     })
     .catch(err => console.error('Ошибка загрузки секрета:', err));
-}
-
-function showGifSecret() {
-  const gifUrl = 'Goddess.webp';
-  const img = new Image();
-  img.src = gifUrl;
-
-  img.onload = () => {
-    const html = `
-      <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:80vh; text-align:center;">
-        <img src="${gifUrl}" style="max-width:80%; max-height:60vh; object-fit:contain; margin-bottom:0px;">
-        <div style="font-family:'CoventryC', cursive; font-size:3rem; color:#e91e63; font-weight:normal;">
-          Тут пока ничего нет... Но дата тоже особенная...❤️‍🔥<br>Если ты это видишь, значит ты тоже понмнишь эту ночь...🥰
-        </div>
-      </div>
-    `;
-    displaySecret(html);
-  };
-
-  img.onerror = () => {
-    console.error('Ошибка загрузки WebP');
-  };
 }
 
 function displaySecret(htmlContent) {
